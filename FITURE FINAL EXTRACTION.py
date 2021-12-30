@@ -57,7 +57,7 @@ df = df.loc[10300:10500]
 x = df.drop(['class'],axis=1)
 y = df['class']
 
-if False:
+if True:
     #x, y = make_friedman1(n_samples=50, n_features=10, random_state=0)
     estimator = SVR(kernel="linear")
     selector = RFE(estimator, n_features_to_select=12, step=10)
@@ -69,14 +69,12 @@ if False:
     print('Best features:')
     print(features_line[best_features])
     print(selector.support_)
-    exit(0)
-if False:
+if True:
     #-----------------------корелційний аналіз---------------
     dataframe = pd.DataFrame(data=scaled_data,columns=colums_names)
     print(dataframe)
     sns.heatmap(dataframe.corr(),annot = True,fmt='.0g');
     plt.show()
-    exit(0)
 
 if True:
     #----------------------PCA аналіз------------------
@@ -99,7 +97,7 @@ if True:
 
 #--------------------------TSNE аналіз---------------------------------------------
 
-if False:
+if True:
     from sklearn.manifold import TSNE
 
     #Може рахувати до 20 хвилин!

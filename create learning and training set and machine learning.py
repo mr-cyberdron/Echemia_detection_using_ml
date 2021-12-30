@@ -40,12 +40,12 @@ y_test = np.ravel(y_test)
 X_train = X_train.to_numpy()
 X_test = X_test.to_numpy()
 
-if False:
+if True:
     #логістична регресія
     print('starting LogisticRegress')
     from sklearn.linear_model import LogisticRegression
     clf = LogisticRegression(random_state=0).fit(X_train, y_train)
-    predicted = clf.predict(X_test.to_numpy()[:2, :])
+    predicted = clf.predict(X_test[:2, :])
     print('control',y_test[:2])
     print('predicted',predicted)
     scor = clf.score(X_test,y_test)
@@ -57,7 +57,7 @@ if False:
     print('starting linearRegress')
     from sklearn.linear_model import LinearRegression
     clf = LinearRegression().fit(X_train, y_train)
-    predicted = clf.predict(X_test.to_numpy()[:2, :])
+    predicted = clf.predict(X_test[:2, :])
     print('control',y_test[:2])
     print('predicted',predicted)
     scor = clf.score(X_test,y_test)
@@ -70,7 +70,7 @@ if False:
     from sklearn import linear_model
     clf = linear_model.Ridge(alpha=0.1)
     clf.fit(X_train, y_train)
-    predicted = clf.predict(X_test.to_numpy()[:2, :])
+    predicted = clf.predict(X_test[:2, :])
     print('control',y_test[:2])
     print('predicted',predicted)
     scor = clf.score(X_test,y_test)
@@ -83,7 +83,7 @@ if False:
     from sklearn import linear_model
     clf = linear_model.Lasso(alpha=0.1)
     clf.fit(X_train, y_train)
-    predicted = clf.predict(X_test.to_numpy()[:2, :])
+    predicted = clf.predict(X_test[:2, :])
     print('control',y_test[:2])
     print('predicted',predicted)
     scor = clf.score(X_test,y_test)
@@ -97,7 +97,7 @@ if False:
     from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
     clf = LinearDiscriminantAnalysis()
     clf.fit(X_train, y_train)
-    predicted = clf.predict(X_test.to_numpy()[:2, :])
+    predicted = clf.predict(X_test[:2, :])
     print('control',y_test[:2])
     print('predicted',predicted)
     scor = clf.score(X_test,y_test)
@@ -110,7 +110,7 @@ if False:
     from sklearn.neighbors import KNeighborsClassifier
     clf = KNeighborsClassifier(n_neighbors=3)
     clf.fit(X_train, y_train)
-    predicted = clf.predict(X_test.to_numpy()[:2, :])
+    predicted = clf.predict(X_test[:2, :])
     print('control',y_test[:2])
     print('predicted',predicted)
     scor = clf.score(X_test,y_test)
@@ -127,7 +127,7 @@ if False:
     #метод вимагає стандартного розподілу, тож використовуємо standartscaler
     clf = make_pipeline(StandardScaler(),SVC(kernel='poly', degree=3,verbose=1))
     clf.fit(X_train, y_train)
-    predicted = clf.predict(X_test.to_numpy()[:2, :])
+    predicted = clf.predict(X_test[:2, :])
     print('control',y_test[:2])
     print('predicted',predicted)
     scor = clf.score(X_test,y_test)
@@ -140,7 +140,7 @@ if False:
     #метод вимагає стандартного розподілу, тож використовуємо standartscaler
     clf = make_pipeline(StandardScaler(), SVC(kernel='rbf',gamma=1,  C = 1000,verbose=1))
     clf.fit(X_train, y_train)
-    predicted = clf.predict(X_test.to_numpy()[:2, :])
+    predicted = clf.predict(X_test[:2, :])
     print('control',y_test[:2])
     print('predicted',predicted)
     scor = clf.score(X_test,y_test)
@@ -153,7 +153,7 @@ if False:
     #метод вимагає стандартного розподілу, тож використовуємо standartscaler
     clf = make_pipeline(StandardScaler(), SVC(kernel='sigmoid',verbose=1))
     clf.fit(X_train, y_train)
-    predicted = clf.predict(X_test.to_numpy()[:2, :])
+    predicted = clf.predict(X_test[:2, :])
     print('control',y_test[:2])
     print('predicted',predicted)
     scor = clf.score(X_test,y_test)
@@ -169,7 +169,7 @@ if False:
         print('deepth:', i)
         clf = DecisionTreeClassifier(max_depth=i)
         clf.fit(X_train, y_train)
-        predicted = clf.predict(X_test.to_numpy()[:2, :])
+        predicted = clf.predict(X_test[:2, :])
         print('control',y_test[:2])
         print('predicted',predicted)
         scor = clf.score(X_test,y_test)
@@ -177,49 +177,49 @@ if False:
         print('done')
         print('')
 
-# #ансамблі дерев рішень
-# from sklearn.ensemble import RandomForestClassifier
-# print('Ансамблі дерев рішень')
-# num_treas = [10,20,30]
-# for i in num_treas:
-#     print('кількість дерев в лісі',i)
-#     clf = RandomForestClassifier(n_estimators=i)
-#     clf.fit(X_train, y_train)
-#     predicted = clf.predict(X_test.to_numpy()[:2, :])
-#     print('control',y_test[:2])
-#     print('predicted',predicted)
-#     scor = clf.score(X_test,y_test)
-#     print('score = ', scor)
-#     print('done')
-#     print('')
-#
-# #градієнтний бустинг
-# from sklearn.ensemble import  GradientBoostingClassifier
-# print('градієнтний бустинг')
-# clf = GradientBoostingClassifier(max_depth=10,
-#                                  learning_rate=1,verbose=1)
-# clf.fit(X_train, y_train)
-# predicted = clf.predict(X_test.to_numpy()[:2, :])
-# print('control',y_test[:2])
-# print('predicted',predicted)
-# scor = clf.score(X_test,y_test)
-# print('score = ', scor)
-# print('done')
-# print('')
+#ансамблі дерев рішень
+from sklearn.ensemble import RandomForestClassifier
+print('Ансамблі дерев рішень')
+num_treas = [10,20,30]
+for i in num_treas:
+    print('кількість дерев в лісі',i)
+    clf = RandomForestClassifier(n_estimators=i)
+    clf.fit(X_train, y_train)
+    predicted = clf.predict(X_test[:2, :])
+    print('control',y_test[:2])
+    print('predicted',predicted)
+    scor = clf.score(X_test,y_test)
+    print('score = ', scor)
+    print('done')
+    print('')
+
+#градієнтний бустинг
+from sklearn.ensemble import  GradientBoostingClassifier
+print('градієнтний бустинг')
+clf = GradientBoostingClassifier(max_depth=10,
+                                 learning_rate=1,verbose=1)
+clf.fit(X_train, y_train)
+predicted = clf.predict(X_test[:2, :])
+print('control',y_test[:2])
+print('predicted',predicted)
+scor = clf.score(X_test,y_test)
+print('score = ', scor)
+print('done')
+print('')
 
 
-# #Наївний баєсівський ксласифікатор
-# from sklearn.naive_bayes import GaussianNB
-# print('naive bayes clasifier')
-# clf = GaussianNB()
-# clf.fit(X_train, y_train)
-# predicted = clf.predict(X_test.to_numpy()[:2, :])
-# print('control',y_test[:2])
-# print('predicted',predicted)
-# scor = clf.score(X_test,y_test)
-# print('score = ', scor)
-# print('done')
-# print('')
+#Наївний баєсівський ксласифікатор
+from sklearn.naive_bayes import GaussianNB
+print('naive bayes clasifier')
+clf = GaussianNB()
+clf.fit(X_train, y_train)
+predicted = clf.predict(X_test[:2, :])
+print('control',y_test[:2])
+print('predicted',predicted)
+scor = clf.score(X_test,y_test)
+print('score = ', scor)
+print('done')
+print('')
 
 #Стекінг (Найкращій )
 from sklearn.ensemble import RandomForestClassifier
