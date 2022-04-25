@@ -24,7 +24,17 @@ patalogy_data = load(file_dir,'echemia_features_filtered_reduced.npz')
 
 # Створимо датафрейм, закодуємо норму як 1, паталогію, як 0
 [joining_mas,flags_mas] = dl.class_coding(patalogy_data,normal_data,clases_description =['паталогія','норма'])
+flags_mas2 = []
+for flag in flags_mas:
+    flag = [str(flag[0])]
+    if flag[0] == '0.0':
+        flag = ['Pathology']
+    else:
+        flag = ['Normal']
+    flags_mas2.append(flag)
+flags_mas = np.array(flags_mas2)
 
+#input(flags_mas)
 #Нормуємо данні
 scaler = StandardScaler()
 coefs = scaler.fit(joining_mas)
@@ -57,7 +67,7 @@ df = df.loc[10300:10500]
 x = df.drop(['class'],axis=1)
 y = df['class']
 
-if True:
+if False:
     #x, y = make_friedman1(n_samples=50, n_features=10, random_state=0)
     estimator = SVR(kernel="linear")
     selector = RFE(estimator, n_features_to_select=12, step=10)
@@ -69,7 +79,7 @@ if True:
     print('Best features:')
     print(features_line[best_features])
     print(selector.support_)
-if True:
+if False:
     #-----------------------корелційний аналіз---------------
     dataframe = pd.DataFrame(data=scaled_data,columns=colums_names)
     print(dataframe)
@@ -92,12 +102,15 @@ if True:
     df = pd.DataFrame({'First_component':principalComponents_breast[:,0],
                        'Second_component':principalComponents_breast[:,1],
                        'Third_component':principalComponents_breast[:,2],'flags':flags_mas[:,0]})
-    fig = px.scatter_3d(df, x='First_component', y='Second_component', z='Third_component',color='flags')
+    fig = px.scatter_3d(df, x='First_component', y='Second_component', z='Third_component',color='flags',
+                        labels={'flags':"Group"},
+                        color_discrete_sequence=['darkblue',"yellow"]
+                        )
     fig.show()
 
 #--------------------------TSNE аналіз---------------------------------------------
 
-if True:
+if False:
     from sklearn.manifold import TSNE
 
     #Може рахувати до 20 хвилин!

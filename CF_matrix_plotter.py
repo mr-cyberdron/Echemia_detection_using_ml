@@ -63,6 +63,22 @@ def make_confusion_matrix(cf,
 
     if percent:
         group_percentages = ["{0:.2%}".format(value) for value in cf.flatten() / np.sum(cf)]
+
+        print(group_percentages)
+        p1 = float(group_percentages[0].split('%')[0])
+        p2 = float(group_percentages[1].split('%')[0])
+        p3 = float(group_percentages[2].split('%')[0])
+        p4 = float(group_percentages[3].split('%')[0])
+
+        p01 = round((p1 * 100 / (p1 + p2)),2)
+        p02 = round((p2 * 100 / (p1 + p2)),2)
+
+        p03 = round((p3 * 100 / (p3 + p4)),2)
+        p04 = round((p4 * 100 / (p3 + p4)),2)
+
+        group_percentages = [str(p01)+'%',str(p02)+'%',str(p03)+'%',str(p04)+'%']
+        #input(group_percentages)
+
     else:
         group_percentages = blanks
 
@@ -100,7 +116,6 @@ def make_confusion_matrix(cf,
     # MAKE THE HEATMAP VISUALIZATION
     plt.figure(figsize=figsize)
     sns.heatmap(cf, annot=box_labels, fmt="", cmap=cmap, cbar=cbar, xticklabels=categories, yticklabels=categories)
-
     if xyplotlabels:
         plt.ylabel('True label')
         plt.xlabel('Predicted label' + stats_text)
